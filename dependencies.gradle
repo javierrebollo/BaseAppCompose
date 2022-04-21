@@ -1,0 +1,61 @@
+def buildConfig = [:]
+buildConfig.minSdk = 21
+buildConfig.compileSdk = 32
+buildConfig.targetSdk = 32
+
+ext.buildConfig = buildConfig
+
+def versions = [:]
+versions.androidXCore = "1.7.0"
+versions.androidXAppcompat = "1.4.1"
+versions.androidXLifeCycle = "2.4.1"
+versions.material = "1.5.0"
+versions.junit = "4.13.2"
+versions.androidXJunit = "1.1.3"
+versions.androidXExpresso = "3.4.0"
+versions.hilt = "2.41"
+versions.okHttp = '4.9.3'
+versions.retroFit = '2.9.0'
+versions.compose = '1.1.1'
+versions.composeActivity = '1.4.0'
+versions.composeLifeCycleVM = '2.4.1'
+versions.composeCoil = '2.0.0-rc03'
+versions.hiltCompose = '1.0.0'
+versions.room = "2.4.2"
+versions.mockitoCore = "4.5.0"
+versions.mockitoKotlin = "4.0.0"
+
+ext.versions = versions
+
+def deps = [:]
+deps.androidXCore = "androidx.core:core-ktx:$versions.androidXCore"
+deps.androidXAppcompat = "androidx.appcompat:appcompat:$versions.androidXAppcompat"
+deps.androidXLifeCycleVM = "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.androidXLifeCycle"
+deps.androidXLifeCycleRuntime = "androidx.lifecycle:lifecycle-runtime-ktx:$versions.androidXLifeCycle"
+deps.okhttp = "com.squareup.okhttp3:okhttp:$versions.okHttp"
+deps.okhttpLogginInterceptor = "com.squareup.okhttp3:logging-interceptor:$versions.okHttp"
+deps.material = "com.google.android.material:material:$versions.material"
+deps.junit = "junit:junit:$versions.junit"
+deps.androidXJunit = "androidx.test.ext:junit:$versions.androidXJunit"
+deps.androidXExpresso = "androidx.test.espresso:espresso-core:$versions.androidXExpresso"
+deps.hilt = "com.google.dagger:hilt-android:$versions.hilt"
+deps.hiltCompiler = "com.google.dagger:hilt-compiler:$versions.hilt"
+deps.retrofit = "com.squareup.retrofit2:retrofit:$versions.retroFit"
+deps.retrofitGson = "com.squareup.retrofit2:converter-gson:$versions.retroFit"
+
+deps.composeActivity = "androidx.activity:activity-compose:$versions.composeActivity"
+deps.composeMaterial = "androidx.compose.material:material:$versions.compose"
+deps.composeAnimation = "androidx.compose.animation:animation:$versions.compose"
+deps.composeRuntimeLiveData = "androidx.compose.runtime:runtime-livedata:$versions.compose"
+deps.composeCoil = "io.coil-kt:coil-compose:$versions.composeCoil"
+deps.composeUi = "androidx.compose.ui:ui-tooling:$versions.compose"
+deps.composeLifeCycleVM = "androidx.lifecycle:lifecycle-viewmodel-compose:$versions.composeLifeCycleVM"
+deps.hiltCompose = "androidx.hilt:hilt-navigation-compose:$versions.hiltCompose"
+deps.room = "androidx.room:room-runtime:$versions.room"
+deps.roomKtx = "androidx.room:room-ktx:$versions.room"
+deps.roomAnnotation = "androidx.room:room-compiler:$versions.room"
+
+deps.mockitoCore = "org.mockito:mockito-core:$versions.mockitoCore"
+deps.mockitoKotlin = "org.mockito.kotlin:mockito-kotlin:$versions.mockitoKotlin"
+
+ext.deps = deps
