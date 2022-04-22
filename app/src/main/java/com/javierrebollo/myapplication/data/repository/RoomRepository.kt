@@ -4,6 +4,7 @@ import com.javierrebollo.myapplication.data.db.dao.RoomDao
 import com.javierrebollo.myapplication.data.db.entity.toRoom
 import com.javierrebollo.myapplication.data.db.entity.toRoomDBO
 import com.javierrebollo.myapplication.data.network.api.RoomApi
+import com.javierrebollo.myapplication.data.network.networkSafeCall
 import com.javierrebollo.myapplication.domain.di.IoDispatcher
 import com.javierrebollo.myapplication.domain.entity.Room
 import com.javierrebollo.myapplication.domain.entity.TaskResult
@@ -23,32 +24,20 @@ class RoomRepository @Inject constructor(
 
     suspend fun getAllRoomFromServer(): TaskResult<List<Room>> {
         return withContext(coroutineDispatcher) {
-            try {
-                val result = roomApi.getRooms()
-                if (result.isSuccessful) {
-                    return@withContext TaskResult.SuccessResult(
-                        result.body()?.rooms ?: emptyList()
-                    )
-                } else {
-                    return@withContext TaskResult.ErrorResult(Exception("Network error"))
-                }
-            } catch (e: Exception) {
-                return@withContext TaskResult.ErrorResult(Exception("Connection error"))
+            networkSafeCall({ roomApi.getRooms() }) { bookListResponse ->
+                return@networkSafeCall TaskResult.SuccessResult(bookListResponse.rooms)
             }
         }
     }
 
     suspend fun bookRoom(): TaskResult<Unit> {
         return withContext(coroutineDispatcher) {
-            try {
-                val result = roomApi.bookRoom()
-                if (result.isSuccessful && result.body()?.success == true) {
-                    return@withContext TaskResult.SuccessResult(Unit)
+            networkSafeCall({ roomApi.bookRoom() }) { bookRoomResponse ->
+                if (bookRoomResponse.success) {
+                    return@networkSafeCall TaskResult.SuccessResult(Unit)
                 } else {
-                    return@withContext TaskResult.ErrorResult(Exception("Error when try to book a room"))
+                    return@networkSafeCall TaskResult.ErrorResult(Exception("Error when try to book a room"))
                 }
-            } catch (e: Exception) {
-                return@withContext TaskResult.ErrorResult(Exception("Connection error"))
             }
         }
     }
