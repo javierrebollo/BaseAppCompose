@@ -1,8 +1,6 @@
 package com.javierrebollo.myapplication.data.repository
 
 import com.javierrebollo.myapplication.data.network.api.RoomApi
-import com.javierrebollo.myapplication.data.network.exception.GenericNetworkException
-import com.javierrebollo.myapplication.data.network.exception.NetworkException
 import com.javierrebollo.myapplication.data.network.response.BookListResponse
 import com.javierrebollo.myapplication.domain.entity.Room
 import com.javierrebollo.myapplication.domain.entity.TaskResult
@@ -35,50 +33,6 @@ class RoomRepositoryTest {
     @After
     fun after() {
         Dispatchers.resetMain()
-    }
-
-    @Test
-    fun `when call to getAllRoomFromServer without connection then should to return error`() {
-        val roomApi: RoomApi = mock()
-
-        runTest {
-            Mockito.`when`(roomApi.getRooms()).thenThrow(RuntimeException())
-
-            val roomRepository = RoomRepository(
-                coroutineDispatcher = testDispatcher,
-                roomDao = mock(),
-                roomApi = roomApi
-            )
-
-            val result = roomRepository.getAllRoomFromServer()
-
-            assert((result as TaskResult.ErrorResult).exception is GenericNetworkException)
-        }
-    }
-
-    @Test
-    fun `when call to getAllRoomFromServer with error response then should to return error`() {
-        val errorCode = 404
-        val roomApi: RoomApi = mock()
-        val apiResponse: Response<BookListResponse> = mock {
-            on { isSuccessful } doReturn false
-            on { code() } doReturn errorCode
-        }
-
-        runTest {
-            Mockito.`when`(roomApi.getRooms()).doReturn(apiResponse)
-
-            val roomRepository = RoomRepository(
-                coroutineDispatcher = testDispatcher,
-                roomDao = mock(),
-                roomApi = roomApi
-            )
-
-            val result = roomRepository.getAllRoomFromServer()
-
-            assert((result as TaskResult.ErrorResult).exception is NetworkException)
-            assert((result.exception as NetworkException).errorCode == errorCode)
-        }
     }
 
     @Test
