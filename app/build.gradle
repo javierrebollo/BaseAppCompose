@@ -71,6 +71,7 @@ dependencies {
     implementation deps.composeLifeCycleVM
     implementation deps.composeRuntimeLiveData
     implementation deps.composeCoil
+    implementation deps.composeNavigation
     implementation deps.hiltCompose
 
     kapt deps.roomAnnotation

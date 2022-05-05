@@ -1,15 +1,13 @@
-package com.javierrebollo.myapplication.ui.screen.dummy
+package com.javierrebollo.myapplication.ui.screen.list
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.javierrebollo.myapplication.data.repository.RoomRepository
 import com.javierrebollo.myapplication.domain.entity.Room
 import com.javierrebollo.myapplication.domain.entity.on
-import com.javierrebollo.myapplication.domain.usecase.BookRoomUseCase
 import com.javierrebollo.myapplication.domain.usecase.UpdateRoomsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -19,10 +17,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DummyVM @Inject constructor(
+class ListVM @Inject constructor(
     private val roomRepository: RoomRepository,
-    private val updateRoomsUseCase: UpdateRoomsUseCase,
-    private val bookRoomUseCase: BookRoomUseCase
+    private val updateRoomsUseCase: UpdateRoomsUseCase
 ) : ViewModel() {
 
     val roomItems: Flow<List<Room>> = roomRepository.getAllRoom()
@@ -43,19 +40,6 @@ class DummyVM @Inject constructor(
                 failure = {
                     _toastMessage.send(it.localizedMessage ?: "")
                     _showLoader.value = false
-                }
-            )
-        }
-    }
-
-    fun bookRoom(room: Room) {
-        viewModelScope.launch {
-            bookRoomUseCase().on(
-                success = {
-                    _toastMessage.send("${room.name} Booked")
-                },
-                failure = {
-                    _toastMessage.send(it.localizedMessage ?: "")
                 }
             )
         }

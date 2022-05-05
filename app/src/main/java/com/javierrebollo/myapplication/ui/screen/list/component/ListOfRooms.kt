@@ -1,4 +1,4 @@
-package com.javierrebollo.myapplication.ui.screen.dummy.component
+package com.javierrebollo.myapplication.ui.screen.list.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

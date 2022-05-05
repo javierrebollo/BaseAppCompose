@@ -1,6 +1,7 @@
-package com.javierrebollo.myapplication.ui.screen.dummy.component
+package com.javierrebollo.myapplication.ui.screen.list.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,7 +28,11 @@ fun RoomItem(
     bookPressed: (room: Room) -> Unit = {}
 ) {
     Column(
-        Modifier.fillMaxWidth()
+        Modifier
+            .fillMaxWidth()
+            .clickable {
+                bookPressed.invoke(room)
+            }
     ) {
         Box(
             modifier = Modifier
