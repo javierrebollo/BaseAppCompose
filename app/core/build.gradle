@@ -1,0 +1,12 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+apply from: "$rootProject.projectDir/android-configuration.gradle"
+
+dependencies {
+    implementation project(":app:core-contract")
+
+    implementation deps.androidXCore
+}
