@@ -1,5 +1,6 @@
 package com.javierrebollo.myapplication.domain.usecase
 
+import com.javierrebollo.core.coroutine.MyCoroutineDispatcher
 import com.javierrebollo.myapplication.data.repository.RoomRepository
 import com.javierrebollo.myapplication.domain.entity.Room
 import com.javierrebollo.myapplication.domain.entity.TaskResult
@@ -14,6 +15,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito
+import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
@@ -22,6 +24,13 @@ import org.mockito.kotlin.verify
 class UpdateRoomsUseCaseTest {
 
     private val testDispatcher: CoroutineDispatcher = StandardTestDispatcher()
+
+    private val myCoroutineDispatcher: MyCoroutineDispatcher = mock {
+        on { default } doReturn testDispatcher
+        on { io } doReturn testDispatcher
+        on { main } doReturn testDispatcher
+    }
+
 
     @Before
     fun before() {
@@ -38,7 +47,7 @@ class UpdateRoomsUseCaseTest {
         val roomRepository: RoomRepository = mock()
 
         val updateRoomsUseCase = UpdateRoomsUseCase(
-            dispatcher = testDispatcher,
+            dispatcher = myCoroutineDispatcher,
             roomRepository = roomRepository
         )
 
@@ -61,7 +70,7 @@ class UpdateRoomsUseCaseTest {
         val response: List<Room> = emptyList()
 
         val updateRoomsUseCase = UpdateRoomsUseCase(
-            dispatcher = testDispatcher,
+            dispatcher = myCoroutineDispatcher,
             roomRepository = roomRepository
         )
 

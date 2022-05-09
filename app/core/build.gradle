@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 apply from: "$rootProject.projectDir/android-configuration.gradle"
@@ -9,4 +11,7 @@ dependencies {
     implementation project(":app:core-contract")
 
     implementation deps.androidXCore
+    implementation deps.hilt
+
+    kapt deps.hiltCompiler
 }
