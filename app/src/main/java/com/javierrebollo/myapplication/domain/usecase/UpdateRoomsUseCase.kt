@@ -1,6 +1,6 @@
 package com.javierrebollo.myapplication.domain.usecase
 
-import com.javierrebollo.core.coroutine.MyCoroutineDispatcher
+import com.javierrebollo.core.coroutines.MyCoroutineDispatcherImpl
 import com.javierrebollo.myapplication.data.repository.RoomRepository
 import com.javierrebollo.myapplication.domain.entity.TaskResult
 import com.javierrebollo.myapplication.domain.entity.on
@@ -8,7 +8,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class UpdateRoomsUseCase @Inject constructor(
-    private val dispatcher: MyCoroutineDispatcher,
+    private val dispatcher: com.javierrebollo.core.coroutines.MyCoroutineDispatcherImpl,
     private val roomRepository: RoomRepository
 ) {
 

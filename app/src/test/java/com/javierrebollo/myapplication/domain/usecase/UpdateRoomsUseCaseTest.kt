@@ -1,6 +1,6 @@
 package com.javierrebollo.myapplication.domain.usecase
 
-import com.javierrebollo.core.coroutine.MyCoroutineDispatcher
+import com.javierrebollo.core.coroutines.MyCoroutineDispatcherImpl
 import com.javierrebollo.myapplication.data.repository.RoomRepository
 import com.javierrebollo.myapplication.domain.entity.Room
 import com.javierrebollo.myapplication.domain.entity.TaskResult
@@ -15,7 +15,6 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito
-import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
@@ -25,7 +24,7 @@ class UpdateRoomsUseCaseTest {
 
     private val testDispatcher: CoroutineDispatcher = StandardTestDispatcher()
 
-    private val myCoroutineDispatcher: MyCoroutineDispatcher = mock {
+    private val myCoroutineDispatcher: com.javierrebollo.core.coroutines.MyCoroutineDispatcherImpl = mock {
         on { default } doReturn testDispatcher
         on { io } doReturn testDispatcher
         on { main } doReturn testDispatcher

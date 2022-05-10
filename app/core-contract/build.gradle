@@ -8,6 +8,7 @@ plugins {
 apply from: "$rootProject.projectDir/android-configuration.gradle"
 
 dependencies {
+    implementation deps.coroutines
     implementation deps.androidXCore
     implementation deps.hilt
 

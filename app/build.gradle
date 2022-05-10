@@ -11,6 +11,15 @@ android {
     defaultConfig {
         applicationId "com.javierrebollo.myapplication"
     }
+
+    buildFeatures {
+        dataBinding true
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion compose_version
+    }
 }
 
 dependencies {
