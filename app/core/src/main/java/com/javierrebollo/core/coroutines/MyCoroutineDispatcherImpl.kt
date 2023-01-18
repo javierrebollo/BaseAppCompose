@@ -1,13 +1,14 @@
 package com.javierrebollo.core.coroutines
 
+import com.javierrebollo.core.coroutine.MyCoroutineDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
-class MyCoroutineDispatcherImpl {
-    val main: CoroutineDispatcher
+class MyCoroutineDispatcherImpl : MyCoroutineDispatcher {
+    override val main: CoroutineDispatcher
         get() = Dispatchers.Main
-    val default: CoroutineDispatcher
+    override val default: CoroutineDispatcher
         get() = Dispatchers.Default
-    val io: CoroutineDispatcher
+    override val io: CoroutineDispatcher
         get() = Dispatchers.IO
 }

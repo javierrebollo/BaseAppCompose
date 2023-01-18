@@ -1,20 +1,20 @@
 def buildConfig = [:]
 buildConfig.minSdk = 21
-buildConfig.compileSdk = 32
-buildConfig.targetSdk = 32
+buildConfig.compileSdk = 33
+buildConfig.targetSdk = 33
 
 ext.buildConfig = buildConfig
 
 def versions = [:]
-versions.androidXCore = "1.7.0"
-versions.androidXAppcompat = "1.4.1"
-versions.androidXLifeCycle = "2.4.1"
+versions.androidXCore = "1.9.0"
+versions.androidXAppcompat = "1.6.0"
+versions.androidXLifeCycle = "2.5.1"
 versions.androidCoreTesting = "2.1.0"
 versions.material = "1.5.0"
 versions.junit = "4.13.2"
 versions.androidXJunit = "1.1.3"
 versions.androidXExpresso = "3.4.0"
-versions.hilt = "2.41"
+versions.hilt = "2.44"
 versions.okHttp = '4.9.3'
 versions.retroFit = '2.9.0'
 versions.compose = '1.1.1'
@@ -26,7 +26,7 @@ versions.hiltCompose = '1.0.0'
 versions.room = "2.4.2"
 versions.mockitoCore = "4.5.0"
 versions.mockitoKotlin = "4.0.0"
-versions.coroutines = "1.6.1"
+versions.coroutines = "1.6.4"
 
 ext.versions = versions
 

@@ -1,5 +1,6 @@
 package com.javierrebollo.core.di
 
+import com.javierrebollo.core.coroutine.MyCoroutineDispatcher
 import com.javierrebollo.core.coroutines.MyCoroutineDispatcherImpl
 import dagger.Module
 import dagger.Provides
@@ -13,5 +14,5 @@ class CoroutineDispatcherModule {
 
     @Singleton
     @Provides
-    fun providesMyCoroutineDispatcher(): MyCoroutineDispatcherImpl = MyCoroutineDispatcherImpl()
+    fun providesMyCoroutineDispatcher(): MyCoroutineDispatcher = MyCoroutineDispatcherImpl()
 }

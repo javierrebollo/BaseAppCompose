@@ -1,14 +1,13 @@
 package com.javierrebollo.myapplication.data.repository
 
+import com.javierrebollo.core.coroutine.MyCoroutineDispatcher
 import com.javierrebollo.myapplication.data.db.dao.RoomDao
 import com.javierrebollo.myapplication.data.db.entity.toRoom
 import com.javierrebollo.myapplication.data.db.entity.toRoomDBO
 import com.javierrebollo.myapplication.data.network.api.RoomApi
 import com.javierrebollo.myapplication.data.network.networkSafeCall
-import com.javierrebollo.myapplication.domain.di.IoDispatcher
 import com.javierrebollo.myapplication.domain.entity.Room
 import com.javierrebollo.myapplication.domain.entity.TaskResult
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
@@ -17,13 +16,13 @@ import javax.inject.Singleton
 
 @Singleton
 class RoomRepository @Inject constructor(
-    @IoDispatcher private val coroutineDispatcher: CoroutineDispatcher,
+    private val myCoroutineDispatcher: MyCoroutineDispatcher,
     private val roomDao: RoomDao,
     private val roomApi: RoomApi
 ) {
 
     suspend fun getAllRoomFromServer(): TaskResult<List<Room>> {
-        return withContext(coroutineDispatcher) {
+        return withContext(myCoroutineDispatcher.io) {
             networkSafeCall({ roomApi.getRooms() }) { bookListResponse ->
                 return@networkSafeCall TaskResult.SuccessResult(bookListResponse.rooms)
             }
@@ -31,7 +30,7 @@ class RoomRepository @Inject constructor(
     }
 
     suspend fun bookRoom(): TaskResult<Unit> {
-        return withContext(coroutineDispatcher) {
+        return withContext(myCoroutineDispatcher.io) {
             networkSafeCall({ roomApi.bookRoom() }) { bookRoomResponse ->
                 if (bookRoomResponse.success) {
                     return@networkSafeCall TaskResult.SuccessResult(Unit)
@@ -43,7 +42,7 @@ class RoomRepository @Inject constructor(
     }
 
     suspend fun replaceRoomsInDB(roomList: List<Room>) {
-        withContext(coroutineDispatcher) {
+        withContext(myCoroutineDispatcher.io) {
             roomDao.nukeTable()
             roomDao.insertAll(roomList.map { it.toRoomDBO() })
         }
